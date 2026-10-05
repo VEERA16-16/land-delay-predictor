@@ -1,23 +1,13 @@
-"""
-Train and compare machine-learning models for SIH26017 LAND-AI.
-
-The model uses information that should be available at the prediction stage.
-`delay_days` is intentionally excluded because it is an outcome field and would
-cause target leakage if used as a training feature.
-"""
-
 from pathlib import Path
 import sys
 import warnings
+from xgboost import XGBClassifier
+
 
 warnings.filterwarnings("ignore")
 
 
-# =======================================================
-# PROJECT PATH SETUP
-# train.py is inside: land-delay-predictor/src/train.py
-# PROJECT_DIR becomes: land-delay-predictor/
-# =======================================================
+
 PROJECT_DIR = Path(__file__).resolve().parent.parent
 
 if str(PROJECT_DIR) not in sys.path:
@@ -54,10 +44,8 @@ from config import (
     TEST_SIZE,
 )
 
-
-# =======================================================
 # MODEL FEATURES
-# =======================================================
+
 TARGET = "delayed"
 
 # Never include these during training.
@@ -97,9 +85,8 @@ NUMERIC_COLUMNS = [
 FEATURE_COLUMNS = CATEGORICAL_COLUMNS + NUMERIC_COLUMNS
 
 
-# =======================================================
 # PREPROCESSING PIPELINE
-# =======================================================
+
 def make_preprocessor():
     """
     Build preprocessing that is saved inside the final model pipeline.
@@ -144,9 +131,8 @@ def make_preprocessor():
     )
 
 
-# =======================================================
 # TRAIN AND EVALUATE
-# =======================================================
+
 def evaluate_model(name, pipeline, x_train, x_test, y_train, y_test):
     """Fit one pipeline and return both metrics and fitted pipeline."""
 
@@ -238,13 +224,22 @@ def main():
             random_state=RANDOM_STATE,
         ),
         "Random Forest": RandomForestClassifier(
-            n_estimators=400,
+            n_estimators=300,
             max_depth=12,
             min_samples_leaf=3,
             class_weight="balanced",
             random_state=RANDOM_STATE,
             n_jobs=-1,
         ),
+        "XGBoost Classifier": XGBClassifier(
+            n_estimators=250,
+            max_depth=6,
+            learning_rate=0.05,
+            eval_metric="logloss",
+            random_state=RANDOM_STATE,
+            n_jobs=-1,
+        ),
+    
         "Histogram Gradient Boosting": HistGradientBoostingClassifier(
             max_iter=250,
             learning_rate=0.06,

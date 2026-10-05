@@ -1,6 +1,7 @@
 pandas
 numpy
 scikit-learn
+xgboost>=2.0.0
 matplotlib
 seaborn
 streamlit
@@ -8,3 +9,4 @@ joblib
 shap
 plotly
 openpyxl
+pydantic

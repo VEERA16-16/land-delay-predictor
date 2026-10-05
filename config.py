@@ -1,38 +1,48 @@
 import os
+from pathlib import Path
 
-BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+BASE_DIR = Path(__file__).resolve().parent
 
-RAW_DATA_DIR = os.path.join(BASE_DIR, "data", "raw")
-PROCESSED_DATA_DIR = os.path.join(BASE_DIR, "data", "processed")
-MODELS_DIR = os.path.join(BASE_DIR, "models")
-REPORTS_DIR = os.path.join(BASE_DIR, "reports")
-ASSETS_DIR = os.path.join(BASE_DIR, "assets")
+RAW_DATA_DIR = BASE_DIR / "data" / "raw"
+PROCESSED_DATA_DIR = BASE_DIR / "data" / "processed"
+MODELS_DIR = BASE_DIR / "models"
+REPORTS_DIR = BASE_DIR / "reports"
+ASSETS_DIR = BASE_DIR / "assets"
 
-RAW_DATA_PATH = os.path.join(RAW_DATA_DIR, "raw_delayed_projects.csv")
-PROCESSED_DATA_PATH = os.path.join(PROCESSED_DATA_DIR, "processed_dataset.csv")
-MODEL_PATH = os.path.join(MODELS_DIR, "delay_model.pkl")
+RAW_DATA_PATH = RAW_DATA_DIR / "raw_delayed_projects.csv"
+PROCESSED_DATA_PATH = PROCESSED_DATA_DIR / "land_acquisition_data.csv"
+MODEL_PATH = MODELS_DIR / "delay_model.pkl"
 
-FEATURE_COLUMNS = [
-    "state",
-    "sector",
+CATEGORICAL_COLUMNS = ["state", "sector", "rural_urban"]
+
+NUMERIC_COLUMNS = [
     "sanctioned_cost_cr",
     "land_required_ha",
     "land_acquired_pct",
     "num_landowners",
+    "affected_families",
     "litigation_flag",
+    "litigation_cases",
     "days_since_notification",
     "compensation_disbursed_pct",
+    "award_completed_pct",
+    "possession_pct",
+    "rehabilitation_progress_pct",
+    "approval_pending_days",
+    "documentation_completion_pct",
+    "stakeholder_response_score",
+    "grievances_count",
+    "previous_delay_rate",
+    "data_quality_score",
 ]
 
-CATEGORICAL_COLUMNS = ["state", "sector"]
-NUMERIC_COLUMNS = [c for c in FEATURE_COLUMNS if c not in CATEGORICAL_COLUMNS]
-
+FEATURE_COLUMNS = CATEGORICAL_COLUMNS + NUMERIC_COLUMNS
 TARGET_COLUMN = "delayed"
 
 RISK_THRESHOLDS = {
-    "low": 0.4,
-    "medium": 0.7,
+    "low": 0.40,
+    "medium": 0.70,
 }
 
 RANDOM_STATE = 42
-TEST_SIZE = 0.2
+TEST_SIZE = 0.20

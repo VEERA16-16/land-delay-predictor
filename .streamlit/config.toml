@@ -1,0 +1,15 @@
+[theme]
+base = "light"
+primaryColor = "#1D4ED8"              # Professional enterprise cobalt blue
+backgroundColor = "#F8FAFC"           # Clean slate background (off-white)
+secondaryBackgroundColor = "#FFFFFF"  # Pure white card containers
+textColor = "#0F172A"                 # Deep slate text for high contrast
+font = "sans serif"
+
+[client]
+showErrorDetails = false
+
+[server]
+headless = true
+enableCORS = false
+enableXsrfProtection = true
