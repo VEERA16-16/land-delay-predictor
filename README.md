@@ -1,50 +1,41 @@
-# Land Acquisition Delay Predictor - SIH26017
+# 🏢 BHOOMIGUARD AI: Infrastructure Land Acquisition Delay Intelligence
 
-## Problem
-Predictive Analytics System for Early Detection of Land Acquisition Delays (Ministry of Rural Development)
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://bhoomiguard-ai.streamlit.app/)
+[![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-## Folder Structure
-land-delay-predictor/
-├── data/raw/
-├── data/processed/
-├── notebooks/
-├── src/
-├── app/
-├── models/
-├── assets/
-├── reports/
-├── config.py
-├── requirements.txt
-├── setup_windows.bat
-├── setup_mac_linux.sh
-├── generate_dataset.py
-└── README.md
+> **Live Deployment:** [bhoomiguard-ai.streamlit.app](https://bhoomiguard-ai.streamlit.app/)  
+> **Problem Statement Track:** Smart India Hackathon (SIH26017) — Ministry of Rural Development
 
+---
 
-## Setup (do this first)
+## 📌 Executive Overview
+Land acquisition bottlenecks cause major infrastructure schedule overruns across India. **BHOOMIGUARD AI** shifts monitoring from reactive tracking to **predictive early-warning decision support**. 
 
-### Windows
-Double-click `setup_windows.bat`, or run:
+By evaluating 21 administrative, financial, legal, and operational milestone indicators, the system:
+1. **Predicts** schedule delay probability using optimized ensemble decision trees.
+2. **Explains** local feature attribution via **TreeSHAP** waterfall diagnostics.
+3. **Simulates** counterfactual operational interventions to prescribe specific risk-reduction actions.
 
-### Mac/Linux
+---
 
+## 🏗️ System Architecture
 
-## Daily activation (every time you open a new terminal)
-- Windows: `venv\Scripts\activate`
-- Mac/Linux: `source venv/bin/activate`
-
-## Run the Streamlit app
-
-## Data sources
-1. https://www.data.gov.in/resource/project-wise-details-some-major-projects-delayed-due-land-acquisition-01-04-2024
-   → Download CSV into `data/raw/raw_delayed_projects.csv`
-
-2. https://larr.dolr.gov.in/faces/public/projectwise.xhtml
-   → Reference for real field structure
-
-## 8-Hour Plan
-- Hour 1-2: Generate dataset, quick EDA
-- Hour 2-4: Train model (`python src/train.py`)
-- Hour 4-6: Build Streamlit app
-- Hour 6-7: Add dashboard, polish UI
-- Hour 7-8: Prepare presentation, rehearse demo
+```text
+Synthetic Domain Engine (21 Features)
+               │
+               ▼
+  Scikit-Learn ColumnTransformer Pipeline
+  (SimpleImputer + StandardScaler + OneHotEncoder)
+               │
+               ▼
+      XGBoost / HistGradientBoosting
+         (Optimized for High Recall)
+               │
+       ┌───────┴───────┐
+       ▼               ▼
+ TreeSHAP Attribution   Counterfactual Prescriptive Engine
+ (Local Waterfall Plot) (Simulated Interventions)
+       └───────┬───────┘
+               ▼
+ Streamlit Cloud Enterprise Decision Interface
